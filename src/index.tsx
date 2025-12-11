@@ -4,12 +4,13 @@ import { RouterProvider } from 'react-router-dom'
 
 import router from "@/app/providers/router/router";
 import { ThemeProvider } from '@/app/providers/ThemeProvider'
+import { Loader } from "@/widgets/Loader";
 
 const root = createRoot(document.getElementById('root'))
 root.render(
-    <Suspense fallback={ <div>Loading...</div> }>
-        <ThemeProvider>
+    <ThemeProvider>
+        <Suspense fallback={ <Loader/> }>
             <RouterProvider router={ router }/>
-        </ThemeProvider>
-    </Suspense>
+        </Suspense>
+    </ThemeProvider>
 )
