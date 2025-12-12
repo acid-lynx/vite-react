@@ -1,19 +1,15 @@
 import clsx from 'clsx'
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { useTheme } from '@/app/providers/ThemeProvider'
 import './styles/index.css'
+import Navbar from "@/widgets/Navbar";
 
 export const App = () => {
-    const { theme, toggleTheme } = useTheme()
+    const { theme } = useTheme()
 
     return (
-        <div className={ clsx('app', theme) }>
-            <div className="text-5xl">
-                <button onClick={ toggleTheme }>TOGGLE</button>
-                <Link to={ '/' }>Главная</Link>
-                <Link to={ '/about' }>О сайте</Link>
-            </div>
-
+        <div className={ clsx('app h-screen', theme) }>
+            <Navbar />
             <Outlet/>
         </div>
     )
