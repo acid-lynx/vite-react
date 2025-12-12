@@ -8,7 +8,7 @@ interface NavbarLinkProps {
 export default function NavbarLink({to, text, ...rest}: NavbarLinkProps) {
     return (
         <NavLink
-            className=""
+            className="mx-4"
             to={ to }
             { ...rest }
         >
