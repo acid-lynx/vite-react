@@ -1,5 +1,6 @@
 import { useTheme } from "@/app/providers/ThemeProvider";
 import NavbarLink from "@/shared/NavbarLink";
+import { Button } from "@/shared/Button";
 
 export default function Navbar() {
     const { theme, toggleTheme } = useTheme()
@@ -10,12 +11,11 @@ export default function Navbar() {
                 <NavbarLink to="/about" text="About" />
             </div>
 
-            <button
+            <Button
                 onClick={ toggleTheme }
-                className="bg-gray-800 border border-yellow-800 px-6 py-1 rounded-2xl"
             >
                 {theme === 'light-mode' ? '🌙' : '☀️'}
-            </button>
+            </Button>
         </div>
     )
 }
