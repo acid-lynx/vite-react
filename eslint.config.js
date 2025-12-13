@@ -4,45 +4,28 @@ import tsParser from '@typescript-eslint/parser'
 import tsPlugin from '@typescript-eslint/eslint-plugin'
 import reactPlugin from 'eslint-plugin-react'
 import reactHooksPlugin from 'eslint-plugin-react-hooks'
+import globals from 'globals'
 
 export default [
   js.configs.recommended,
-  prettierConfig,
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module',
       parser: tsParser,
       parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-        project: './tsconfig.json',
+        ecmaVersion: 'latest',
+        sourceType: 'module',
       },
       globals: {
-        console: 'readonly',
-        process: 'readonly',
-        Buffer: 'readonly',
-        document: 'readonly',
-        localStorage: 'readonly',
-        __dirname: 'readonly',
-        __filename: 'readonly',
+        ...globals.browser,
+        ...globals.node,
       },
     },
     plugins: {
-      'react': reactPlugin,
       '@typescript-eslint': tsPlugin,
-      'react-hooks': reactHooksPlugin,
     },
     rules: {
-      // General rules
-      'no-console': 'warn',
-      'no-debugger': 'error',
-      'prefer-const': 'error',
-      'no-var': 'error',
-
-      // TypeScript rules
+      ...tsPlugin.configs.recommended.rules,
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_' },
@@ -51,16 +34,30 @@ export default [
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-non-null-assertion': 'warn',
-
-      // React rules
-      'react/prop-types': 'off', // Using TypeScript for prop validation
-      'react/jsx-uses-vars': 'error',
+    },
+  },
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    plugins: {
+      'react': reactPlugin,
+      'react-hooks': reactHooksPlugin,
+    },
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+      },
+    },
+    rules: {
+      ...reactPlugin.configs.recommended.rules,
+      ...reactPlugin.configs['jsx-runtime'].rules,
+      'react/prop-types': 'off',
       'react/jsx-key': 'error',
-      'react/jsx-no-duplicate-props': 'error',
-      'react/jsx-no-undef': 'error',
       'react/no-unescaped-entities': 'warn',
-
-      // React Hooks rules
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
     },
@@ -70,9 +67,13 @@ export default [
       },
     },
   },
+  prettierConfig,
   {
     ignores: [
-      '*.config.js'
+      'dist/',
+      'build/',
+      'node_modules/',
+      '.vite/',
     ],
   },
 ]

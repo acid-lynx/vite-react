@@ -1,18 +1,18 @@
 import { NavLink } from "react-router-dom";
 
 interface NavbarLinkProps {
-    to: string;
-    text?: string;
+  to: string;
+  text?: string;
 }
 
-export default function NavbarLink({to, text, ...rest}: NavbarLinkProps) {
-    return (
-        <NavLink
-            className="mx-4"
-            to={ to }
-            { ...rest }
-        >
-            { text }
-        </NavLink>
-    )
+export default function NavbarLink({ to, text, ...props }: NavbarLinkProps) {
+  return (
+    <NavLink
+      className="mx-4"
+      to={ to }
+      { ...props }
+    >
+      { text }
+    </NavLink>
+  )
 }
