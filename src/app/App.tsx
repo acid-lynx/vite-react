@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { Outlet } from 'react-router-dom'
-import { useTheme } from '@/app/providers/ThemeProvider'
+import { useTheme } from '@/widgets/ThemeSwitcher'
 import './styles/index.css'
 import Navbar from "@/widgets/Navbar";
 
